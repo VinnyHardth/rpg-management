@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  
-    "scripts": {
-      "dev": "ts-node-dev src/index.ts",
-      "build": "tsc",
-      "start": "node dist/index.js"
-    },
-  
+  "scripts": {
+    "dev": "ts-node-dev src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -17,6 +15,7 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "prisma": "^5.14.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
   }
