@@ -41,6 +41,23 @@ services:
     depends_on:
       - mysql
 
+  frontend:
+    container_name: frontend_rpg
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./frontend/:/src/
+    networks:
+      - rpg-network
+    depends_on:
+      - backend
+
 networks:
   rpg-network:
     driver: bridge
