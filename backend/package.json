@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npx nodemon --watch src src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node build/index.js"
   },
   "author": "",
   "license": "ISC",
