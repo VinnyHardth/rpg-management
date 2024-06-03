@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 
 import validateEnv from "./utils/validateEnv";
-import router from "./router/router";
+import router from "./router";
 
 dotenv.config();
 validateEnv();
@@ -10,6 +10,7 @@ validateEnv();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(express.json());
 app.use(router);
 
 app.listen(PORT, () => {
