@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 export const checkNameAvailability = async (
   name: string,
-  ignore?: number
+  ignore?: string
 ): Promise<boolean> => {
   const rpgSystem = await prisma.rpgSystem.findFirst({
     where: { name, id: { not: ignore } },
@@ -22,17 +22,17 @@ export const createRpgSystem = async (
 };
 
 export const updateRpgSystem = async (
-  id: number,
+  id: string,
   rpgSystem: UpdateRpgSystemDto
 ): Promise<RpgSystem> => {
   return prisma.rpgSystem.update({ where: { id }, data: rpgSystem });
 };
 
-export const deleteRpgSystem = async (id: number): Promise<RpgSystem> => {
+export const deleteRpgSystem = async (id: string): Promise<RpgSystem> => {
   return prisma.rpgSystem.delete({ where: { id } });
 };
 
-export const getRpgSystem = async (id: number): Promise<RpgSystem | null> => {
+export const getRpgSystem = async (id: string): Promise<RpgSystem | null> => {
   return prisma.rpgSystem.findUnique({ where: { id } });
 };
 

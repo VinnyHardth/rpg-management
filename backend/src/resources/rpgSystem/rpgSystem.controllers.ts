@@ -14,8 +14,6 @@ import {
 const create = async (req: Request, res: Response) => {
   const rpgSystem = req.body as CreateRpgSystemDto;
 
-  console.log(rpgSystem);
-
   try {
     const isNameAvailable = await checkNameAvailability(rpgSystem.name);
 
@@ -35,7 +33,7 @@ const create = async (req: Request, res: Response) => {
 
 const update = async (req: Request, res: Response) => {
   const RpgNameToUpdate = req.body as UpdateRpgSystemDto;
-  const idToUpdate = Number(req.params.id);
+  const idToUpdate = req.params.id;
 
   const isNameAvailable = await checkNameAvailability(
     RpgNameToUpdate.name,
@@ -59,7 +57,7 @@ const update = async (req: Request, res: Response) => {
 };
 
 const remove = async (req: Request, res: Response) => {
-  const idToDeletion = Number(req.params.id);
+  const idToDeletion = req.params.id;
 
   try {
     const deletedRpgSystem = await deleteRpgSystem(idToDeletion);
@@ -69,21 +67,21 @@ const remove = async (req: Request, res: Response) => {
   }
 };
 
-const get = async (req: Request, res: Response) => {
-  const idToGet = Number(req.params.id);
-
+const getAll = async (req: Request, res: Response) => {
   try {
-    const rpgSystem = await getRpgSystem(idToGet);
-    return res.status(StatusCodes.OK).json(rpgSystem);
+    const rpgSystems = await getRpgSystems();
+    return res.status(StatusCodes.OK).json(rpgSystems);
   } catch (error) {
     return res.status(StatusCodes.BAD_REQUEST).json(error);
   }
 };
 
-const getAll = async (req: Request, res: Response) => {
+const get = async (req: Request, res: Response) => {
+  const idToGet = req.params.id;
+
   try {
-    const rpgSystems = await getRpgSystems();
-    return res.status(StatusCodes.OK).json(rpgSystems);
+    const rpgSystem = await getRpgSystem(idToGet);
+    return res.status(StatusCodes.OK).json(rpgSystem);
   } catch (error) {
     return res.status(StatusCodes.BAD_REQUEST).json(error);
   }
