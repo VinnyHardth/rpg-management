@@ -35,7 +35,8 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - ./backend/:/src/
+      - ./backend/:/app/
+      - /app/node_modules
     networks:
       - rpg-network
     depends_on:
@@ -52,7 +53,8 @@ services:
     ports:
       - '4000:4000'
     volumes:
-      - ./frontend/:/src/
+      - ./frontend/:/app/
+      - /app/node_modules
     networks:
       - rpg-network
     depends_on:
