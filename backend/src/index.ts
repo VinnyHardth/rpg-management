@@ -1,5 +1,11 @@
-import express from 'express';
-import router from './router/router'
+import dotenv from "dotenv";
+import express from "express";
+
+import validateEnv from "./utils/validateEnv";
+import router from "./router/router";
+
+dotenv.config();
+validateEnv();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
