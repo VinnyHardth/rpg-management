@@ -1,5 +1,8 @@
-import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+import session from "express-session";
+import { v4 as uuidv4 } from "uuid";
 import express from "express";
+import dotenv from "dotenv";
 
 import validateEnv from "./utils/validateEnv";
 import router from "./router";
@@ -9,6 +12,17 @@ validateEnv();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(cookieParser());
+
+app.use(
+  session({
+    genid: (req) => uuidv4(),
+    secret: "StMf#She#mj34se#dSm",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
 app.use(express.json());
 app.use(router);
