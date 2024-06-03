@@ -15,20 +15,30 @@ datasource db {
 }
 
 model User {
-  id        String      @id @default(uuid()) @db.Char(36)
-  email     String      @unique @db.VarChar(150)
-  username  String      @unique @db.VarChar(30)
-  password  String      @db.VarChar(60)
-  createdAt DateTime    @default(now()) @map("created_at")
-  updatedAt DateTime    @updatedAt @map("updated_at")
-  Campaign  Campaign[]
-  Character Character[]
+  id         String      @id @default(uuid()) @db.Char(40)
+  email      String      @unique @db.VarChar(150)
+  username   String      @unique @db.VarChar(30)
+  password   String      @db.VarChar(60)
+  user_type  UserType    @relation(fields: [userTypeId], references: [id])
+  userTypeId String      @map("user_type_id")
+  createdAt  DateTime    @default(now()) @map("created_at")
+  updatedAt  DateTime    @updatedAt @map("updated_at")
+  Campaign   Campaign[]
+  Character  Character[]
 
   @@map("users")
 }
 
+model UserType {
+  id    String @id @default(uuid()) @db.Char(40)
+  label String @unique @db.VarChar(10)
+  User  User[]
+
+  @@map("user_types")
+}
+
 model RpgSystem {
-  id        Int        @id @default(autoincrement()) @db.Int
+  id        String     @id @default(uuid()) @db.Char(40)
   name      String     @unique @db.VarChar(100)
   createdAt DateTime   @default(now()) @map("created_at")
   updatedAt DateTime   @updatedAt @map("updated_at")
@@ -44,7 +54,7 @@ model Campaign {
   user        User        @relation(fields: [userId], references: [id])
   userId      String      @map("user_id")
   rpgSystem   RpgSystem   @relation(fields: [rpgSystemId], references: [id])
-  rpgSystemId Int         @map("rpg_system_id")
+  rpgSystemId String      @map("rpg_system_id")
   createdAt   DateTime    @default(now()) @map("created_at")
   updatedAt   DateTime    @updatedAt @map("updated_at")
   Character   Character[]

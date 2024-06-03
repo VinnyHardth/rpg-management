@@ -1,9 +1,10 @@
 -- CreateTable
 CREATE TABLE `users` (
-    `id` CHAR(36) NOT NULL,
+    `id` CHAR(40) NOT NULL,
     `email` VARCHAR(150) NOT NULL,
     `username` VARCHAR(30) NOT NULL,
     `password` VARCHAR(60) NOT NULL,
+    `user_type_id` VARCHAR(191) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
@@ -13,8 +14,17 @@ CREATE TABLE `users` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `user_types` (
+    `id` CHAR(40) NOT NULL,
+    `label` VARCHAR(10) NOT NULL,
+
+    UNIQUE INDEX `user_types_label_key`(`label`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `rpg_systems` (
-    `id` CHAR(36) NOT NULL,
+    `id` CHAR(40) NOT NULL,
     `name` VARCHAR(100) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
@@ -27,6 +37,7 @@ CREATE TABLE `rpg_systems` (
 CREATE TABLE `campaigns` (
     `id` CHAR(36) NOT NULL,
     `name` VARCHAR(100) NOT NULL,
+    `description` TEXT NULL,
     `user_id` VARCHAR(191) NOT NULL,
     `rpg_system_id` VARCHAR(191) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -84,6 +95,9 @@ CREATE TABLE `secondary_status` (
     UNIQUE INDEX `secondary_status_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `users` ADD CONSTRAINT `users_user_type_id_fkey` FOREIGN KEY (`user_type_id`) REFERENCES `user_types`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `campaigns` ADD CONSTRAINT `campaigns_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
