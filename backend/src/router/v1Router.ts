@@ -1,8 +1,8 @@
 import { Router } from "express";
-import campaignRouter from "../resources/rpgSystem/rpgSystem.router";
+import rpgSystemRouter from "../resources/rpgSystem/rpgSystem.router";
 
 const router = Router();
 
-router.use("/rpgSystem", campaignRouter);
+router.use("/rpgSystem", rpgSystemRouter);
 
 export default router;
