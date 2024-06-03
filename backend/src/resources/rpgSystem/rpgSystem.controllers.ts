@@ -3,6 +3,7 @@ import { ReasonPhrases, StatusCodes } from "http-status-codes";
 
 import { CreateRpgSystemDto, UpdateRpgSystemDto } from "./rpgSystem.types";
 import {
+  checkNameAvailability,
   createRpgSystem,
   updateRpgSystem,
   deleteRpgSystem,
@@ -10,28 +11,47 @@ import {
   getRpgSystems,
 } from "./rpgSystem.service";
 
-
 const create = async (req: Request, res: Response) => {
   const rpgSystem = req.body as CreateRpgSystemDto;
 
   console.log(rpgSystem);
 
   try {
+    const isNameAvailable = await checkNameAvailability(rpgSystem.name);
+
+    if (!isNameAvailable) {
+      return res.status(StatusCodes.CONFLICT).json({
+        error: ReasonPhrases.CONFLICT,
+        message: "Name already in use",
+      });
+    }
+
     const createdRpgSystem = await createRpgSystem(rpgSystem);
     return res.status(StatusCodes.CREATED).json(createdRpgSystem);
   } catch (error) {
-    return res.status(StatusCodes.BAD_REQUEST).json(error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 };
 
 const update = async (req: Request, res: Response) => {
-  const updateRpg = req.body as UpdateRpgSystemDto;
-  
+  const RpgNameToUpdate = req.body as UpdateRpgSystemDto;
+  const idToUpdate = Number(req.params.id);
+
+  const isNameAvailable = await checkNameAvailability(
+    RpgNameToUpdate.name,
+    idToUpdate
+  );
+
+  if (!isNameAvailable) {
+    return res.status(StatusCodes.CONFLICT).json({
+      error: ReasonPhrases.CONFLICT,
+      message: "Name already in use",
+    });
+  }
+
   try {
-    const updatedRpgSystem = await updateRpgSystem(
-      Number(req.params.id),
-      updateRpg
-    );
+    const updatedRpgSystem = await updateRpgSystem(idToUpdate, RpgNameToUpdate);
+
     return res.status(StatusCodes.OK).json(updatedRpgSystem);
   } catch (error) {
     return res.status(StatusCodes.BAD_REQUEST).json(error);

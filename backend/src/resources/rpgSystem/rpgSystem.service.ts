@@ -4,6 +4,17 @@ import { CreateRpgSystemDto, UpdateRpgSystemDto } from "./rpgSystem.types";
 
 const prisma = new PrismaClient();
 
+export const checkNameAvailability = async (
+  name: string,
+  ignore?: number
+): Promise<boolean> => {
+  const rpgSystem = await prisma.rpgSystem.findFirst({
+    where: { name, id: { not: ignore } },
+  });
+
+  return rpgSystem === null;
+};
+
 export const createRpgSystem = async (
   rpgSystem: CreateRpgSystemDto
 ): Promise<RpgSystem> => {
@@ -15,11 +26,11 @@ export const updateRpgSystem = async (
   rpgSystem: UpdateRpgSystemDto
 ): Promise<RpgSystem> => {
   return prisma.rpgSystem.update({ where: { id }, data: rpgSystem });
-}
+};
 
 export const deleteRpgSystem = async (id: number): Promise<RpgSystem> => {
   return prisma.rpgSystem.delete({ where: { id } });
-}
+};
 
 export const getRpgSystem = async (id: number): Promise<RpgSystem | null> => {
   return prisma.rpgSystem.findUnique({ where: { id } });
