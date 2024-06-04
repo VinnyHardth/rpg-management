@@ -47,6 +47,22 @@ model RpgSystem {
   @@map("rpg_systems")
 }
 
+model StatusFromRpgSystem {
+  id   String @id @default(uuid()) @db.Char(36)
+  name String @unique @db.VarChar(100)
+
+  PrimaryStatus   PrimaryStatus[]
+  SecondaryStatus SecondaryStatus[]
+
+  Status   Status @relation(fields: [statusId], references: [id])
+  statusId String @db.Char(36)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("status_from_rpg_system")
+}
+
 model Campaign {
   id          String      @id @default(uuid()) @db.Char(36)
   name        String      @unique @db.VarChar(100)
@@ -75,37 +91,38 @@ model Character {
   @@map("characters")
 }
 
-model StatusType {
-  id              String            @id @default(uuid()) @db.Char(36)
-  name            String            @unique @db.VarChar(100)
-  createdAt       DateTime          @default(now()) @map("created_at")
-  updatedAt       DateTime          @updatedAt @map("updated_at")
-  PrimaryStatus   PrimaryStatus[]
-  SecondaryStatus SecondaryStatus[]
+model Status {
+  id   String @id @default(uuid()) @db.Char(36)
+  name String @unique @db.VarChar(100)
 
-  @@map("status_types")
+  statusFromRpgSystem StatusFromRpgSystem[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("status")
 }
 
 model PrimaryStatus {
-  id        String     @id @default(uuid()) @db.Char(36)
-  name      String     @unique @db.VarChar(100)
-  value     Int        @default(0) @db.SmallInt
-  type      StatusType @relation(fields: [typeId], references: [id])
-  typeId    String     @map("type_id")
-  createdAt DateTime   @default(now()) @map("created_at")
-  updatedAt DateTime   @updatedAt @map("updated_at")
+  id             String              @id @default(uuid()) @db.Char(36)
+  name           String              @unique @db.VarChar(100)
+  value          Int                 @default(0) @db.SmallInt
+  systemStatus   StatusFromRpgSystem @relation(fields: [systemStatusId], references: [id])
+  systemStatusId String              @map("system_status_id")
+  createdAt      DateTime            @default(now()) @map("created_at")
+  updatedAt      DateTime            @updatedAt @map("updated_at")
 
   @@map("primary_status")
 }
 
 model SecondaryStatus {
-  id        String     @id @default(uuid()) @db.Char(36)
-  name      String     @unique @db.VarChar(100)
-  value     Int        @default(0) @db.SmallInt
-  type      StatusType @relation(fields: [typeId], references: [id])
-  typeId    String     @map("type_id")
-  createdAt DateTime   @default(now()) @map("created_at")
-  updatedAt DateTime   @updatedAt @map("updated_at")
+  id             String               @id @default(uuid()) @db.Char(36)
+  name           String               @unique @db.VarChar(100)
+  value          Int                  @default(0) @db.SmallInt
+  systemStatus   StatusFromRpgSystem? @relation(fields: [systemStatusId], references: [id])
+  systemStatusId String?              @map("system_status_id") @db.Char(36)
+  createdAt      DateTime             @default(now()) @map("created_at")
+  updatedAt      DateTime             @updatedAt @map("updated_at")
 
   @@map("secondary_status")
 }
