@@ -2,6 +2,6 @@ import { Campaign } from "@prisma/client";
 
 export type CreateCampaignDto = Pick<
   Campaign,
-  "name" | "rpgSystemId" | "userId" | "description"
+  "rpgSystemId" | "userId" | "name" | "description"
 >;
 export type UpdateCampaignDto = Partial<CreateCampaignDto>;
