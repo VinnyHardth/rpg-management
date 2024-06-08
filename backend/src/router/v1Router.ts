@@ -4,6 +4,8 @@ import statusRouter from "../resources/status/status.router";
 import campaignRouter from "../resources/campaign/campaign.router";
 import rpgSystemRouter from "../resources/rpgSystem/rpgSystem.router";
 import characterRouter from "../resources/character/character.router";
+import primaryStatusRouter from "../resources/primaryStatus/primaryStatus.router";
+import secondaryStatusRouter from "../resources/secondaryStatus/secondaryStatus.router";
 import userInCampaignRouter from "../resources/userInCampaign/userInCampaign.router";
 import statusFromRpgSystemRouter from "../resources/statusFromRpgSystem/statusFromRpgSystem.router";
 
@@ -18,5 +20,7 @@ router.use("/rpgSystem", rpgSystemRouter);
 router.use("/statusFromRpgSystem", statusFromRpgSystemRouter);
 
 router.use("/character", characterRouter);
+router.use("/primaryStatus", primaryStatusRouter);
+router.use("/secondaryStatus", secondaryStatusRouter);
 
 export default router;
