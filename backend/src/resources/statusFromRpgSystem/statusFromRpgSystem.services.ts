@@ -1,4 +1,4 @@
-import { PrismaClient, Status, StatusFromRpgSystem } from "@prisma/client";
+import { PrismaClient, StatusFromRpgSystem } from "@prisma/client";
 import {
   AddStatusFromRpgSystemDto,
   UpdateStatusFromRpgSystemDto,
