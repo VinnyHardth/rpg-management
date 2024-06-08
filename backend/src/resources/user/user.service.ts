@@ -13,8 +13,8 @@ export const getAllUsers = async (): Promise<UserDto[]> => {
       email: true,
       username: true,
       userTypeId: true,
-      createdAt: true,
-      updatedAt: true,
+      created_at: true,
+      updated_at: true,
     },
   });
 
@@ -29,8 +29,8 @@ export const getUserById = async (id: string): Promise<UserDto | null> => {
       email: true,
       username: true,
       userTypeId: true,
-      createdAt: true,
-      updatedAt: true,
+      created_at: true,
+      updated_at: true,
     },
   });
 
@@ -47,8 +47,8 @@ export const getUserByEmail = async (
       email: true,
       username: true,
       userTypeId: true,
-      createdAt: true,
-      updatedAt: true,
+      created_at: true,
+      updated_at: true,
     },
   });
 
@@ -65,8 +65,8 @@ export const getUserByUsername = async (
       email: true,
       username: true,
       userTypeId: true,
-      createdAt: true,
-      updatedAt: true,
+      created_at: true,
+      updated_at: true,
     },
   });
 
@@ -87,8 +87,8 @@ export const createUser = async (
       email: true,
       username: true,
       userTypeId: true,
-      createdAt: true,
-      updatedAt: true,
+      created_at: true,
+      updated_at: true,
     },
     data: {
       ...user,
@@ -111,8 +111,8 @@ export const updateUser = async (
       email: true,
       username: true,
       userTypeId: true,
-      createdAt: true,
-      updatedAt: true,
+      created_at: true,
+      updated_at: true,
     },
     data: user,
   });
@@ -128,8 +128,8 @@ export const deleteUser = async (id: string): Promise<UserDto | null> => {
       email: true,
       username: true,
       userTypeId: true,
-      createdAt: true,
-      updatedAt: true,
+      created_at: true,
+      updated_at: true,
     },
   });
 
