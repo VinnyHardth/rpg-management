@@ -40,11 +40,12 @@ model User {
 }
 
 model UserInCampaign {
-  id         String   @id @default(uuid()) @db.Char(40)
-  user       User     @relation(fields: [userId], references: [id])
-  userId     String   @unique @map("user_id")
-  campaign   Campaign @relation(fields: [campaignId], references: [id])
-  campaignId String   @map("campaign_id")
+  id         String      @id @default(uuid()) @db.Char(40)
+  user       User        @relation(fields: [userId], references: [id])
+  userId     String      @unique @map("user_id")
+  campaign   Campaign    @relation(fields: [campaignId], references: [id])
+  campaignId String      @map("campaign_id")
+  Character  Character[]
 
   @@map("user_in_campaigns")
 }
@@ -134,4 +135,18 @@ model SecondaryStatus {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("secondary_status")
+}
+
+model Character {
+  id          String  @id @default(uuid()) @db.Char(40)
+  name        String  @db.VarChar(100)
+  description String? @db.Text
+
+  UserInCampaign   UserInCampaign @relation(fields: [userInCampaignId], references: [id])
+  userInCampaignId String         @map("user_in_campaign_id") @db.Char(40)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("characters")
 }
