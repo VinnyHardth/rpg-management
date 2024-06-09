@@ -7,6 +7,13 @@ import dotenv from "dotenv";
 import validateEnv from "./utils/validateEnv";
 import router from "./router";
 
+declare module "express-session" {
+  interface SessionData {
+    uid: string;
+    userTypeId: string;
+  }
+}
+
 dotenv.config();
 validateEnv();
 

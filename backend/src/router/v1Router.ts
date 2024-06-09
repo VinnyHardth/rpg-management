@@ -1,4 +1,6 @@
 import { Router } from "express";
+
+import authRouter from "../resources/auth/auth.router";
 import userRouter from "../resources/user/user.router";
 import statusRouter from "../resources/status/status.router";
 import campaignRouter from "../resources/campaign/campaign.router";
@@ -10,6 +12,8 @@ import userInCampaignRouter from "../resources/userInCampaign/userInCampaign.rou
 import statusFromRpgSystemRouter from "../resources/statusFromRpgSystem/statusFromRpgSystem.router";
 
 const router = Router();
+
+router.use("/auth", authRouter);
 
 router.use("/user", userRouter);
 router.use("/userInCampaign", userInCampaignRouter);
