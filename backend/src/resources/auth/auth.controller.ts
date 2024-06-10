@@ -11,6 +11,7 @@ const signup = async (req: Request, res: Response) => {
     res.status(StatusCodes.CREATED).json(newUser);
   } catch (err) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
+    console.error(err);
   }
 };
 
