@@ -1,11 +1,12 @@
 import { Router } from "express";
 import rpgSystemController from "./rpgSystem.controllers";
+import { isAdmin } from "../../middlewares/auth/isAdmin";
 
 const router = Router();
 
-router.post("/", rpgSystemController.create);
-router.put("/:id", rpgSystemController.update);
-router.delete("/:id", rpgSystemController.remove);
+router.post("/", isAdmin, rpgSystemController.create);
+router.put("/:id", isAdmin, rpgSystemController.update);
+router.delete("/:id", isAdmin, rpgSystemController.remove);
 router.get("/:id", rpgSystemController.get);
 router.get("/", rpgSystemController.getAll);
 
