@@ -1,7 +1,9 @@
-import { StatusCodes } from "http-status-codes";
-import { Request, Response } from "express";
+import axios from "axios";
 
+import { Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
 import { CreateCampaignDto, UpdateCampaignDto } from "./campaign.types";
+
 import {
   createCampaign,
   updateCampaign,
@@ -15,6 +17,11 @@ export const create = async (req: Request, res: Response) => {
 
   try {
     const createdCampaign = await createCampaign(campaign);
+
+    axios.post("userincampaign", {
+      campaignId: createdCampaign.id,
+      userId: req.session.uid,
+    });
 
     return res.status(StatusCodes.CREATED).json(createdCampaign);
   } catch (error) {
