@@ -11,13 +11,11 @@ const signup = async (req: Request, res: Response) => {
     res.status(StatusCodes.CREATED).json(newUser);
   } catch (err) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
-    console.error(err);
   }
 };
 
 const login = async (req: Request, res: Response) => {
   const loginDto = req.body;
-  console.log(loginDto);
   try {
     const user = await checkCredentials(loginDto);
 
