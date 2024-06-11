@@ -17,6 +17,7 @@ const signup = async (req: Request, res: Response) => {
 
 const login = async (req: Request, res: Response) => {
   const loginDto = req.body;
+  console.log(loginDto);
   try {
     const user = await checkCredentials(loginDto);
 

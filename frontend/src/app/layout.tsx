@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import "bootstrap/dist/css/bootstrap.min.css";
+import BootstrapClient from "./components/bootstrap/client";
+import { ReactQueryClientProvider } from "./components/react/queryClient";
 import { Inter } from "next/font/google";
-import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +18,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ReactQueryClientProvider>
+          {children}
+          <BootstrapClient />
+        </ReactQueryClientProvider>
+      </body>
     </html>
   );
 }
