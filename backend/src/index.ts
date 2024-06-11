@@ -3,6 +3,7 @@ import session from "express-session";
 import { v4 as uuidv4 } from "uuid";
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 
 import validateEnv from "./utils/validateEnv";
 import router from "./router";
@@ -30,7 +31,11 @@ app.use(
     saveUninitialized: true,
   })
 );
-
+app.use(
+  cors({
+    origin: "http://localhost:4000", // Allow requests from this origin
+  })
+);
 app.use(express.json());
 app.use(router);
 
